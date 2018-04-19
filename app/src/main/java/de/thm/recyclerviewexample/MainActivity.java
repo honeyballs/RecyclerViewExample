@@ -23,12 +23,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Set the Layout of the Activity
         setContentView(R.layout.activity_layout);
+
         recyclerView = findViewById(R.id.recylcerView);
+
+        // Set fixed size if the list won`t have to resize which increases performance
         recyclerView.setHasFixedSize(true);
+
+        // Set a LayoutManager for the RecyclerView.
+        // The LayoutManager will call the corresponding Adapter Methods
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        // Add a Seperator line between the list items
         DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(decoration);
 
@@ -38,10 +46,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         initItems();
+
+        // After the items have been initialized we create an Adapter and set the items
         Adapter adapter = new Adapter(items);
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Initialize 200 String items
+     */
     private void initItems() {
         items = new ArrayList<>();
         for (int i = 1; i <= 200; i++) {
